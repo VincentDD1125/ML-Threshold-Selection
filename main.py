@@ -1500,7 +1500,7 @@ class FixedMLGUI:
             return
         
         feature_stats = self.joshua_analysis_results['feature_stats']
-        joshua_features = self.joshua_analysis_results['joshua_features']
+        joshua_features = self.joshua_analysis_results['features_df']
         
         # Display significant features
         significant_features = [(name, stats) for name, stats in feature_stats.items() 

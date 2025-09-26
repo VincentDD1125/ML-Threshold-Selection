@@ -67,7 +67,15 @@ class JoshuaFeatureEngineer:
         # Calculate L = Q^T · (log Ẽ) · Q
         L = np.zeros((len(df), 3, 3))
         for i in range(len(df)):
-            L[i] = Q[i].T @ log_E_tilde[i] @ Q[i]
+            try:
+                L[i] = Q[i].T @ log_E_tilde[i] @ Q[i]
+                # Check for NaN or inf values
+                if np.isnan(L[i]).any() or np.isinf(L[i]).any():
+                    print(f"   ⚠️ Warning: NaN/Inf detected for particle {i}, using zeros")
+                    L[i] = np.zeros((3, 3))
+            except Exception as e:
+                print(f"   ⚠️ Warning: Matrix multiplication failed for particle {i}: {e}")
+                L[i] = np.zeros((3, 3))
         
         # 5. Convert to 6D vector (maintaining geometric invariance)
         l_vector = np.zeros((len(df), 6))
