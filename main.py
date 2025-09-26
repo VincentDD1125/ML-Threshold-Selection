@@ -92,7 +92,6 @@ class FixedMLGUI:
         self.resolution_aware_engineer = ResolutionAwareFeatureEngineer()
         self.joshua_analysis_results = None
         self.voxel_sizes = {}  # Store voxel sizes
-        self.use_joshua_method = True  # 默认使用Joshua方法
         
         self.setup_gui()
     
@@ -162,8 +161,6 @@ class FixedMLGUI:
         
         ttk.Button(button_frame3, text="📤 Export Results", 
                   command=self.export_results, width=20).pack(side=tk.LEFT, padx=3)
-        ttk.Button(button_frame3, text="🔄 Switch Method", 
-                  command=self.switch_method, width=20).pack(side=tk.LEFT, padx=3)
         
         # Status display
         self.status_label = ttk.Label(main_frame, text="Waiting for operation...", 
@@ -1430,60 +1427,6 @@ class FixedMLGUI:
         except Exception as e:
             self.log(f"❌ Export results failed: {e}")
     
-    def analyze_features(self):
-        """Analyze feature differences (传统方法)"""
-        if self.training_data is None:
-            self.log("❌ Please load training data first")
-            return
-        
-        if not self.expert_thresholds:
-            self.log("❌ Please enter expert thresholds first")
-            return
-        
-        try:
-            self.log("🔍 Starting traditional feature difference analysis...")
-            
-            # Generate labels
-            self.generate_labels_from_thresholds()
-            
-            # Prepare data - clean non-numeric columns
-            df = self.training_data.copy()
-            
-            # Remove possible string columns (like filenames), but keep SampleID and label
-            string_columns = []
-            for col in df.columns:
-                if col in ['SampleID', 'label']:  # Keep these important columns
-                    continue
-                if df[col].dtype == 'object':
-                    # Check if contains non-numeric data
-                    try:
-                        pd.to_numeric(df[col], errors='raise')
-                    except:
-                        string_columns.append(col)
-            
-            if string_columns:
-                self.log(f"   Removed string columns: {string_columns}")
-                df = df.drop(columns=string_columns)
-            
-            labels = df['label'].values
-            sample_ids = df['SampleID'].values if 'SampleID' in df.columns else None
-            
-            # Use user-input voxel sizes
-            if not self.voxel_sizes:
-                self.log("❌ Please input voxel sizes first")
-                return
-            
-            voxel_sizes = self.voxel_sizes
-            
-            # Traditional feature analysis is deprecated - use Joshua method instead
-            self.log("📊 Traditional feature analysis is deprecated. Please use Joshua analysis instead.")
-            
-            self.log("✅ Traditional feature analysis completed")
-            
-        except Exception as e:
-            self.log(f"❌ Feature analysis failed: {e}")
-            import traceback
-            self.log(f"Detailed error: {traceback.format_exc()}")
     
     def analyze_joshua_features(self):
         """Analyze features using Joshua method"""
@@ -1530,7 +1473,7 @@ class FixedMLGUI:
             # Set voxel size for Joshua engineer (use first sample's voxel size in mm)
             first_sample_id = list(self.voxel_sizes.keys())[0]
             self.joshua_feature_engineer.voxel_size_mm = float(self.voxel_sizes[first_sample_id])
-            self.log(f"🔧 设置Joshua方法体素尺寸: {self.joshua_feature_engineer.voxel_size_mm:.4f} mm")
+            self.log(f"🔧 Setting Joshua method voxel size: {self.joshua_feature_engineer.voxel_size_mm:.4f} mm")
             
             # Perform Joshua feature analysis
             self.joshua_analysis_results = self.joshua_feature_analyzer.analyze_feature_differences(
@@ -1564,36 +1507,23 @@ class FixedMLGUI:
                               if stats['is_significant']]
         significant_features.sort(key=lambda x: x[1]['cohens_d'], reverse=True)
         
-        self.log("🎯 Joshua方法显著特征 (p<0.05, Cohen's d>0.2):")
+        self.log("🎯 Joshua method significant features (p<0.05, Cohen's d>0.2):")
         for name, stats in significant_features:
             self.log(f"   - {name}: d={stats['cohens_d']:.3f}, p={stats['p_value']:.2e}")
         
         # Display all features
-        self.log(f"🔬 Joshua方法特征 (共{len(joshua_features.columns)}个):")
+        self.log(f"🔬 Joshua method features (total {len(joshua_features.columns)}):")
         for col in joshua_features.columns:
             stats = feature_stats[col]
-            significance = "显著" if stats['is_significant'] else "不显著"
+            significance = "significant" if stats['is_significant'] else "not significant"
             self.log(f"   - {col}: d={stats['cohens_d']:.3f}, {significance}")
         
         # Display feature descriptions
         feature_descriptions = self.joshua_feature_engineer.get_feature_descriptions()
-        self.log("📋 特征描述:")
+        self.log("📋 Feature descriptions:")
         for feature, description in feature_descriptions.items():
             self.log(f"   - {feature}: {description}")
     
-    def switch_method(self):
-        """Switch between traditional and Joshua methods"""
-        self.use_joshua_method = not self.use_joshua_method
-        method_name = "Joshua方法" if self.use_joshua_method else "传统方法"
-        self.log(f"🔄 已切换到: {method_name}")
-        self.log(f"   - Joshua方法: 7个核心特征，基于对数-椭球张量")
-        self.log(f"   - 传统方法: 25-30个特征，基于特征工程")
-        
-        # Update status
-        if self.use_joshua_method:
-            self.status_label.config(text="当前方法: Joshua (7特征)")
-        else:
-            self.status_label.config(text="当前方法: 传统 (25-30特征)")
     
     
     
