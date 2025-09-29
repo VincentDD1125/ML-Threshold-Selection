@@ -1,0 +1,33 @@
+ML Threshold Selection - Dual Threshold Analysis Report
+============================================================
+
+Analysis Date: 2025-09-26 13:40:30
+Test Data: 5 particles
+Voxel Size: 0.030000 mm
+
+DUAL THRESHOLDS:
+------------------------------
+Loose Threshold (Inflection):
+  - Voxel Count: 2 vox
+  - Volume: 5.40e-05 mm³
+  - Particles Kept: 0 (0.0%)
+  - Particles Removed: 5 (100.0%)
+
+Strict Threshold (P>0.05):
+  - Voxel Count: 3 vox
+  - Volume: 8.10e-05 mm³
+  - Particles Kept: 0 (0.0%)
+  - Particles Removed: 5 (100.0%)
+
+FILES GENERATED:
+------------------------------
+1. outputs/Loose_Threshold_Results_2vox_5.40e-05mm3.xlsx - Loose threshold filtered data
+2. outputs/Strict_Threshold_Results_3vox_8.10e-05mm3.xlsx - Strict threshold filtered data
+3. outputs/Threshold_Report_2vox_3vox.txt - This threshold report
+
+NOTES:
+------------------------------
+- Loose threshold is based on inflection point of artifact rate curve
+- Strict threshold removes all particles with P > 0.05
+- Both thresholds are applied to particle volume (mm³)
+- Filtered data includes original columns plus prediction results

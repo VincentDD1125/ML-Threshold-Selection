@@ -1,0 +1,10 @@
+P' and T Parameter Analysis - Summary Report
+==================================================
+
+Analysis Date: 2025-09-29 15:57:48
+Dataset: 35745 particles
+Bootstrap samples: 1000
+Min particles per threshold: 50
+
+PARAMETER STATISTICS:
+------------------------------

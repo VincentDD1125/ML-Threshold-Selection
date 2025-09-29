@@ -1,0 +1,37 @@
+P' and T Parameter Analysis - Summary Report
+==================================================
+
+Analysis Date: 2025-09-29 15:47:46
+Dataset: 35745 particles
+Bootstrap samples: 1000
+Min particles per threshold: 50
+
+PARAMETER STATISTICS:
+------------------------------
+P_prime:
+  Count: 35745
+  Mean: 7.1203
+  Std: 14.5765
+  Range: [1.0000, 1701.5666]
+
+T:
+  Count: 35745
+  Mean: 0.0288
+  Std: 0.4761
+  Range: [-1.0000, 1.0000]
+
+BOOTSTRAP ANALYSIS:
+------------------------------
+Thresholds analyzed: 0
+Total bootstrap samples: 0
+
+THRESHOLD RECOMMENDATIONS:
+------------------------------
+Bootstrap-based recommendations:
+
+Threshold analysis recommendations:
+
+FILES GENERATED:
+------------------------------
+  parameter_boxplots_20250929_154745.png
+  parameter_correlation_20250929_154745.png
