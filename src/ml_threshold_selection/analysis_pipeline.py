@@ -6,6 +6,7 @@ Feature analysis pipeline and related helpers, extracted from main.
 
 from __future__ import annotations
 
+import os
 import numpy as np
 import pandas as pd
 
