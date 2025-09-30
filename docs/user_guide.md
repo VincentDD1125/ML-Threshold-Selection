@@ -218,7 +218,7 @@ results = learner.analyze_sample(df)
 **A**: Ensure all volumes are in mm³ and all distances are in mm.
 
 ### Q: How do I interpret fabric analysis results?
-**A**: T parameter indicates lineation (T>0) or foliation (T<0). P' indicates anisotropy (P'>0) or isotropy (P'≈0).
+**A**: For detailed interpretation of T and P' parameters, refer to the original literature (Jelínek, 1981) and the scientific methods documentation.
 
 ## Support
 

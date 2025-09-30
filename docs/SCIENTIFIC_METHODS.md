@@ -83,25 +83,23 @@ T_mean = [λ₁ 0  0 ]
 
 ### T and P' Parameters
 
-The fabric parameters are calculated as:
+The fabric parameters are calculated following Jelínek (1981):
 
-**T Parameter (Lineation)**:
+**T Parameter**:
 ```
-T = (λ₁ - λ₂) / (λ₁ + λ₂ - 2λ₃)
-```
-
-**P' Parameter (Foliation)**:
-```
-P' = 2(λ₁ - λ₃) / (λ₁ + λ₂ + λ₃)
+T = (2f₂ - f₁ - f₃) / (f₁ - f₃)
 ```
 
-### Physical Interpretation
+**P' Parameter**:
+```
+P' = exp√2[(f₁ - f)² + (f₂ - f)² + (f₃ - f)²]
+```
 
-- **T > 0**: Lineation present (preferred orientation along λ₁)
-- **T < 0**: Foliation present (preferred orientation perpendicular to λ₃)
-- **T ≈ 0**: Random orientation
-- **P' > 0**: Anisotropic fabric
-- **P' ≈ 0**: Isotropic fabric
+Where:
+- f₁, f₂, f₃ are the natural logs of the normalized magnitudes of the maximum (Φ₁), intermediate (Φ₂), and minimum (Φ₃) axes of the fabric ellipsoid
+- f = (f₁ + f₂ + f₃)/3
+
+For detailed interpretation of these parameters, refer to the original literature (Jelínek, 1981).
 
 ## Bootstrap Analysis
 
