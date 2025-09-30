@@ -187,6 +187,13 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Inspired by modern machine learning approaches to geological data analysis
 - Built with the scientific Python ecosystem (NumPy, Pandas, scikit-learn, Matplotlib)
 
+## 📚 Key References
+
+- **Jelínek, V. (1981)**: Characterization of the magnetic fabric of rocks. *Tectonophysics*, 79(1-4), T63-T67
+- **Ketcham, R. A. (2005)**: Three-dimensional grain fabric measurements using high-resolution X-ray computed tomography. *Journal of Structural Geology*, 27(7), 1217-1228
+- **TomoFab Software**: https://github.com/ctlab/TomoFab
+- **Complete References**: See [Scientific Methods](docs/SCIENTIFIC_METHODS.md#references) for full bibliography
+
 ---
 
 **Citation**: If you use this software in your research, please cite:

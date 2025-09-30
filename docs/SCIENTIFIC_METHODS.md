@@ -246,6 +246,60 @@ Where α and β are weighting factors.
 
 ## References
 
-1. Jelínek, V. (1981). Characterization of the magnetic fabric of rocks. *Tectonophysics*, 79(1-4), T63-T67.
-2. Arsigny, V., Fillard, P., Pennec, X., & Ayache, N. (2006). Log-Euclidean metrics for fast and simple calculus on diffusion tensors. *Magnetic Resonance in Medicine*, 56(2), 411-421.
-3. Efron, B., & Tibshirani, R. J. (1994). *An introduction to the bootstrap*. CRC press.
+### Core Fabric Analysis Methods
+
+1. **Jelínek, V. (1981)**. Characterization of the magnetic fabric of rocks. *Tectonophysics*, 79(1-4), T63-T67. DOI: 10.1016/0040-1951(81)90110-4
+
+2. **Jelínek, V. (1978)**. Statistical processing of anisotropy of magnetic susceptibility measured on groups of specimens. *Studia Geophysica et Geodaetica*, 22(1), 50-62. DOI: 10.1007/BF01613632
+
+### Stereographic Projection and TomoFab
+
+3. **Ketcham, R. A. (2005)**. Three-dimensional grain fabric measurements using high-resolution X-ray computed tomography. *Journal of Structural Geology*, 27(7), 1217-1228. DOI: 10.1016/j.jsg.2005.04.001
+
+4. **Ketcham, R. A., & Ryan, T. M. (2004)**. Quantification and visualization of anisotropy in trabecular bone. *Journal of Microscopy*, 213(2), 158-171. DOI: 10.1111/j.1365-2818.2004.01277.x
+
+5. **TomoFab Software**: https://github.com/ctlab/TomoFab (Accessed: 2024)
+
+### Log-Euclidean Tensor Methods
+
+6. **Arsigny, V., Fillard, P., Pennec, X., & Ayache, N. (2006)**. Log-Euclidean metrics for fast and simple calculus on diffusion tensors. *Magnetic Resonance in Medicine*, 56(2), 411-421. DOI: 10.1002/mrm.20965
+
+7. **Pennec, X., Fillard, P., & Ayache, N. (2006)**. A Riemannian framework for tensor computing. *International Journal of Computer Vision*, 66(1), 41-66. DOI: 10.1007/s11263-005-3222-z
+
+### Bootstrap and Statistical Methods
+
+8. **Efron, B., & Tibshirani, R. J. (1994)**. *An introduction to the bootstrap*. CRC press. ISBN: 978-0-412-04231-7
+
+9. **Chernick, M. R. (2008)**. *Bootstrap methods: a guide for practitioners and researchers*. John Wiley & Sons. ISBN: 978-0-470-11429-0
+
+### Machine Learning in Geosciences
+
+10. **Hall, B. (2016)**. Facies classification using machine learning. *The Leading Edge*, 35(10), 906-909. DOI: 10.1190/tle35100906.1
+
+11. **Bergen, K. J., Johnson, P. A., de Hoop, M. V., & Beroza, G. C. (2019)**. Machine learning for data-driven discovery in solid Earth geoscience. *Science*, 363(6433), eaau0323. DOI: 10.1126/science.aau0323
+
+### X-ray Computed Tomography
+
+12. **Ketcham, R. A., & Carlson, W. D. (2001)**. Acquisition, optimization and interpretation of X-ray computed tomographic imagery: applications to the geosciences. *Computers & Geosciences*, 27(4), 381-400. DOI: 10.1016/S0098-3004(00)00116-3
+
+13. **Cnudde, V., & Boone, M. N. (2013)**. High-resolution X-ray computed tomography in geosciences: A review of the current technology and applications. *Earth-Science Reviews*, 123, 1-17. DOI: 10.1016/j.earscirev.2013.04.003
+
+### Particle Analysis and Fabric
+
+14. **Passchier, C. W., & Trouw, R. A. J. (2005)**. *Microtectonics*. Springer Science & Business Media. ISBN: 978-3-540-64003-5
+
+15. **Ramsay, J. G., & Huber, M. I. (1987)**. *The techniques of modern structural geology: Volume 2: Folds and fractures*. Academic Press. ISBN: 978-0-12-576922-0
+
+### Software and Tools
+
+16. **MTEX Toolbox**: https://mtex-toolbox.github.io/ (Accessed: 2024)
+
+17. **OIM Analysis Software**: https://www.edax.com/products/ebsd-oim-analysis (Accessed: 2024)
+
+18. **Drishti Software**: https://github.com/nci/drishti (Accessed: 2024)
+
+### Additional Reading
+
+19. **Borradaile, G. J., & Jackson, M. (2010)**. Structural geology, petrofabrics and magnetic fabrics (AMS, AARM, AIRM). *Geological Society, London, Special Publications*, 238(1), 1-14. DOI: 10.1144/GSL.SP.2004.238.01.01
+
+20. **Tarling, D. H., & Hrouda, F. (1993)**. *The magnetic anisotropy of rocks*. Chapman & Hall. ISBN: 978-0-412-40240-5
