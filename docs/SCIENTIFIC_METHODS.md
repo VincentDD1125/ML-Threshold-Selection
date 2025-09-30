@@ -18,25 +18,28 @@ Where λ₁, λ₂, λ₃ are the eigenvalues (principal values) of the particle
 
 ### Log-Euclidean Mapping
 
-To enable linear operations on tensors, we map them to the log-Euclidean space:
+The system uses a specialized log-ellipsoid tensor representation for particle shape analysis:
 
 ```
-log(T) = [log(λ₁) 0       0     ]
-         [0       log(λ₂) 0     ]
-         [0       0       log(λ₃)]
+L = Q^T × log(E) × Q
 ```
+
+Where:
+- `Q` is the rotation matrix from eigenvectors
+- `E` is the diagonal matrix with `-2×log(√λᵢ)` on diagonal
+- The resulting 6D tensor components are: L₁₁, L₂₂, L₃₃, L₁₂, L₁₃, L₂₃
 
 ### 7D Feature Vector
 
 The following 7 features are extracted from each particle:
 
-1. **Volume**: `V = (4π/3) * √(λ₁λ₂λ₃)`
-2. **Aspect Ratio 1**: `AR₁ = λ₁/λ₂`
-3. **Aspect Ratio 2**: `AR₂ = λ₂/λ₃`
-4. **Sphericity**: `S = λ₃/λ₁`
-5. **Oblateness**: `O = (λ₁ - λ₂)/λ₁`
-6. **Prolateness**: `P = (λ₂ - λ₃)/λ₂`
-7. **Shape Factor**: `SF = (λ₁λ₂λ₃)^(1/3) / λ₁`
+1. **VoxelCount**: `VoxelCount = Volume(mm³) / voxel_size_mm³` (continuous)
+2. **L11**: Log-ellipsoid tensor component L₁₁
+3. **L22**: Log-ellipsoid tensor component L₂₂  
+4. **L33**: Log-ellipsoid tensor component L₃₃
+5. **sqrt2_L12**: `√2 × L₁₂` (off-diagonal component)
+6. **sqrt2_L13**: `√2 × L₁₃` (off-diagonal component)
+7. **sqrt2_L23**: `√2 × L₂₃` (off-diagonal component)
 
 ### Resolution-Aware Normalization
 
