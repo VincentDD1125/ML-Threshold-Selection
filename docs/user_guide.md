@@ -218,11 +218,9 @@ results = learner.analyze_sample(df)
 **A**: Ensure all volumes are in mm³ and all distances are in mm.
 
 ### Q: How do I interpret fabric analysis results?
-**A**: For detailed interpretation of T and P' parameters, refer to the original literature (Jelínek, 1981) and the scientific methods documentation.
+**A**: For detailed interpretation of T and P' parameters, refer to the original literature (Jelínek, 1981).
 
 ## Support
 
-- **Scientific Methods**: [Detailed Algorithms](docs/SCIENTIFIC_METHODS.md)
-- **API Reference**: [Complete API Documentation](docs/API_REFERENCE.md)
 - **Issues**: [GitHub Issues](https://github.com/VincentDD1125/ML-Threshold-Selection/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/VincentDD1125/ML-Threshold-Selection/discussions)

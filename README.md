@@ -139,10 +139,7 @@ Your particle data must contain these essential columns:
 ## 📚 Documentation
 
 - **[User Guide](docs/user_guide.md)**: Complete user manual with step-by-step instructions
-- **[Scientific Methods](docs/SCIENTIFIC_METHODS.md)**: Detailed explanation of algorithms and methodologies
-- **[API Reference](docs/API_REFERENCE.md)**: Complete API documentation
 - **[Examples](examples/)**: Sample data and demonstration scripts
-- **[Contributing](CONTRIBUTING.md)**: Guidelines for contributing to the project
 
 ## 🏗️ Project Structure
 
@@ -190,9 +187,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📚 Key References
 
 - **Jelínek, V. (1981)**: Characterization of the magnetic fabric of rocks. *Tectonophysics*, 79(1-4), T63-T67
-- **Ketcham, R. A. (2005)**: Three-dimensional grain fabric measurements using high-resolution X-ray computed tomography. *Journal of Structural Geology*, 27(7), 1217-1228
 - **TomoFab Software**: https://github.com/ctlab/TomoFab
-- **Complete References**: See [Scientific Methods](docs/SCIENTIFIC_METHODS.md#references) for full bibliography
 
 ---
 
