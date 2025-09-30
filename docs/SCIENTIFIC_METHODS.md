@@ -1,0 +1,253 @@
+# Scientific Methods and Algorithms
+
+This document provides detailed explanations of the scientific methods and algorithms used in the ML Threshold Selection toolkit.
+
+## Table of Contents
+
+- [Ellipsoid Feature Engineering](#ellipsoid-feature-engineering)
+- [Fabric Analysis (T and P' Parameters)](#fabric-analysis-t-and-p-parameters)
+- [Bootstrap Analysis](#bootstrap-analysis)
+- [Machine Learning Pipeline](#machine-learning-pipeline)
+- [Probability Calculation](#probability-calculation)
+- [Threshold Determination](#threshold-determination)
+
+## Ellipsoid Feature Engineering
+
+### Mathematical Foundation
+
+Each particle is represented as an ellipsoid defined by its principal axes and eigenvalues. The ellipsoid tensor is constructed as:
+
+```
+T = [λ₁ 0  0 ]
+    [0  λ₂ 0 ]
+    [0  0  λ₃]
+```
+
+Where λ₁, λ₂, λ₃ are the eigenvalues (principal values) of the particle.
+
+### Log-Euclidean Mapping
+
+To enable linear operations on tensors, we map them to the log-Euclidean space:
+
+```
+log(T) = [log(λ₁) 0       0     ]
+         [0       log(λ₂) 0     ]
+         [0       0       log(λ₃)]
+```
+
+### 7D Feature Vector
+
+The following 7 features are extracted from each particle:
+
+1. **Volume**: `V = (4π/3) * √(λ₁λ₂λ₃)`
+2. **Aspect Ratio 1**: `AR₁ = λ₁/λ₂`
+3. **Aspect Ratio 2**: `AR₂ = λ₂/λ₃`
+4. **Sphericity**: `S = λ₃/λ₁`
+5. **Oblateness**: `O = (λ₁ - λ₂)/λ₁`
+6. **Prolateness**: `P = (λ₂ - λ₃)/λ₂`
+7. **Shape Factor**: `SF = (λ₁λ₂λ₃)^(1/3) / λ₁`
+
+### Resolution-Aware Normalization
+
+Features are normalized by voxel size to ensure cross-sample compatibility:
+
+```
+normalized_feature = feature / (voxel_size_mm)³
+```
+
+## Fabric Analysis (T and P' Parameters)
+
+### Jelínek (1981) Methodology
+
+The fabric analysis follows the Jelínek (1981) approach for characterizing particle orientation distributions.
+
+### Log-Euclidean Mean Tensor
+
+For each volume threshold, the mean fabric tensor is computed using log-Euclidean averaging:
+
+```
+T_mean = exp(1/n * Σᵢ log(Tᵢ))
+```
+
+Where n is the number of particles and Tᵢ is the tensor of particle i.
+
+### Eigenvalue Analysis
+
+The principal values of the mean tensor are extracted:
+
+```
+T_mean = [λ₁ 0  0 ]
+         [0  λ₂ 0 ]
+         [0  0  λ₃]
+```
+
+### T and P' Parameters
+
+The fabric parameters are calculated as:
+
+**T Parameter (Lineation)**:
+```
+T = (λ₁ - λ₂) / (λ₁ + λ₂ - 2λ₃)
+```
+
+**P' Parameter (Foliation)**:
+```
+P' = 2(λ₁ - λ₃) / (λ₁ + λ₂ + λ₃)
+```
+
+### Physical Interpretation
+
+- **T > 0**: Lineation present (preferred orientation along λ₁)
+- **T < 0**: Foliation present (preferred orientation perpendicular to λ₃)
+- **T ≈ 0**: Random orientation
+- **P' > 0**: Anisotropic fabric
+- **P' ≈ 0**: Isotropic fabric
+
+## Bootstrap Analysis
+
+### Statistical Resampling
+
+For each volume threshold, particles are resampled with replacement to estimate confidence intervals.
+
+### Algorithm
+
+1. **Bootstrap Sampling**: For each threshold, create B bootstrap samples (default B=1000)
+2. **Tensor Computation**: Compute mean tensor for each bootstrap sample
+3. **Parameter Calculation**: Calculate T and P' for each bootstrap sample
+4. **Confidence Intervals**: Compute 95% confidence intervals from bootstrap distribution
+
+### Confidence Interval Calculation
+
+```
+CI_95 = [percentile_2.5, percentile_97.5]
+```
+
+## Machine Learning Pipeline
+
+### Feature Standardization
+
+All features are standardized using StandardScaler:
+
+```
+X_scaled = (X - μ) / σ
+```
+
+Where μ is the mean and σ is the standard deviation.
+
+### Model Training
+
+The system supports multiple algorithms:
+
+- **LightGBM** (default): Gradient boosting with high performance
+- **Random Forest**: Ensemble method with good interpretability
+- **SVM**: Support vector machine for non-linear boundaries
+
+### Cross-Validation
+
+K-fold cross-validation is used for robust performance estimation:
+
+```
+CV_score = 1/k * Σᵢ score(fold_i)
+```
+
+### Hyperparameter Optimization
+
+Grid search or random search is used to optimize hyperparameters:
+
+```python
+param_grid = {
+    'n_estimators': [100, 200, 500],
+    'learning_rate': [0.01, 0.1, 0.2],
+    'max_depth': [3, 5, 7]
+}
+```
+
+## Probability Calculation
+
+### Artifact Probability
+
+The model outputs the probability that a particle is an artifact:
+
+```
+P(artifact) = sigmoid(Σᵢ wᵢ * fᵢ + b)
+```
+
+Where wᵢ are learned weights, fᵢ are features, and b is the bias term.
+
+### Threshold-Based Probability
+
+For semi-supervised learning, probabilities are derived from expert thresholds:
+
+```
+P(artifact) = 1 - exp(-α * (volume - threshold))
+```
+
+Where α is a scaling parameter.
+
+## Threshold Determination
+
+### Loose Threshold (Inflection Point)
+
+The loose threshold is identified as the inflection point of the artifact rate curve:
+
+```
+d²(artifact_rate)/d(volume)² = 0
+```
+
+This represents the optimal balance between artifact removal and particle retention.
+
+### Strict Threshold (Zero Artifacts)
+
+The strict threshold is determined as the volume where all particles have artifact probability > P_threshold:
+
+```
+strict_threshold = max(volume | P(artifact) > P_threshold)
+```
+
+Default P_threshold = 0.01 (configurable).
+
+### Grid Search
+
+A volume grid is generated for threshold evaluation:
+
+```python
+v_min = min(volumes) * 0.1
+v_max = max(volumes) * 10
+volume_grid = np.logspace(log10(v_min), log10(v_max), n_points)
+```
+
+### Optimization Criteria
+
+The optimal threshold minimizes the combined cost:
+
+```
+Cost = α * artifact_rate + β * particle_loss_rate
+```
+
+Where α and β are weighting factors.
+
+## Implementation Details
+
+### Memory Optimization
+
+- Use `float32` for large datasets
+- Process samples in batches
+- Enable data type optimization
+
+### Performance Optimization
+
+- Parallel processing where available
+- Feature selection for high-dimensional data
+- Efficient tensor operations using NumPy
+
+### Numerical Stability
+
+- Add small epsilon values to prevent division by zero
+- Use log-sum-exp trick for numerical stability
+- Regularize eigenvalues to prevent singular matrices
+
+## References
+
+1. Jelínek, V. (1981). Characterization of the magnetic fabric of rocks. *Tectonophysics*, 79(1-4), T63-T67.
+2. Arsigny, V., Fillard, P., Pennec, X., & Ayache, N. (2006). Log-Euclidean metrics for fast and simple calculus on diffusion tensors. *Magnetic Resonance in Medicine*, 56(2), 411-421.
+3. Efron, B., & Tibshirani, R. J. (1994). *An introduction to the bootstrap*. CRC press.
