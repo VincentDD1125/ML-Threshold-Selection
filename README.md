@@ -196,8 +196,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ```bibtex
 @software{ml_threshold_selection,
   title={ML Threshold Selection: Machine Learning-Driven Adaptive Threshold Selection for XRCT Particle Analysis},
-  author={Your Name},
-  year={2024},
-  url={https://github.com/VincentDD1125/ML-Threshold-Selection}
+  author={VincentDD1125},
+  year={2025},
+  version={1.0.0},
+  url={https://github.com/VincentDD1125/ML-Threshold-Selection},
+  repository={https://github.com/VincentDD1125/ML-Threshold-Selection.git},
+  license={MIT},
+  keywords={xrct, particle analysis, machine learning, threshold selection, image processing}
 }
 ```

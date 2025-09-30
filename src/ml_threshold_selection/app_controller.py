@@ -87,7 +87,7 @@ class FixedMLGUI:
         self.voxel_sizes = {}
         # Configuration parameters
         try:
-            from config import STRICT_PROBABILITY_THRESHOLD
+            from config.config import STRICT_PROBABILITY_THRESHOLD
             self.strict_probability_threshold = STRICT_PROBABILITY_THRESHOLD
         except ImportError:
             self.strict_probability_threshold = 0.01  # Default fallback
